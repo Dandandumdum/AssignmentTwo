@@ -16,17 +16,19 @@ public class Program {
         ArrayList<Customer> allCustomers = sqlHelper.selectAllCustomers();
         ArrayList customersGroupedByCountry = sqlHelper.orderByCountryCount();
         ArrayList subSetCustomers = sqlHelper.selectSubsetCustomers(4,9);
+        ArrayList bigSpenderCustomers = sqlHelper.orderedCustomersHighestSpenders();
 
         sqlHelper.addNewCustomer(addCustomer);//triggering primary key constraint fail
         Customer specificCustomer = sqlHelper.selectSpecificCustomer("333");
         Customer specificCustomerByName = sqlHelper.selectSpecificCustomerByName("Wayne");
         sqlHelper.updateCustomer(addCustomer, newCustomerDetails);
 
+
         //printCustomers(allCustomers);
         //printSpecificCustomer(specificCustomer);
         //printSpecificCustomerByName(specificCustomerByName);
         //printOrderedCustomers(customersGroupedByCountry);
-        printCustomers(subSetCustomers);
+        printCustomers(bigSpenderCustomers);
     }
 
     public static void printCustomers(ArrayList<Customer> customers){

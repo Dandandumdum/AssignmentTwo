@@ -265,4 +265,45 @@ public class SqlHelper {
         }
 
     }
+    public ArrayList<Customer> orderedCustomersHighestSpenders() {
+        ArrayList<Customer> customers = new ArrayList<Customer>();
+        try {
+            conn = DriverManager.getConnection(URL);
+            System.out.println("Connection to SQLite has been established.");
+
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement("SELECT Customer.CustomerId, Customer.FirstName,Customer.LastName, Customer.Country,\n" +
+                            "       Customer.PostalCode, Customer.Phone, Customer.Email ,Invoice.Total\n" +
+                            "FROM Customer INNER JOIN Invoice  on Customer.CustomerId = Invoice.CustomerId\n" +
+                            "ORDER BY Invoice.Total DESC");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                customers.add(
+                        new Customer(
+                                resultSet.getString("CustomerId"),
+                                resultSet.getString("FirstName"),
+                                resultSet.getString("LastName"),
+                                resultSet.getString("Country"),
+                                resultSet.getString("PostalCode"),
+                                resultSet.getString("Phone"),
+                                resultSet.getString("Email")
+
+                        ));
+            }
+        } catch (Exception ex) {
+            System.out.println("Something went wrong...");
+            System.out.println(ex.toString());
+        } finally {
+            try {
+                conn.close();
+            } catch (Exception ex) {
+                System.out.println("Something went wrong while closing connection.");
+                System.out.println(ex.toString());
+            }
+            return customers;
+        }
+    }
+
 }
