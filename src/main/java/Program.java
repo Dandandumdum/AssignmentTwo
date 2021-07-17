@@ -15,6 +15,7 @@ public class Program {
         SqlHelper sqlHelper = new SqlHelper();
         ArrayList<Customer> allCustomers = sqlHelper.selectAllCustomers();
         ArrayList customersGroupedByCountry = sqlHelper.orderByCountryCount();
+        ArrayList subSetCustomers = sqlHelper.selectSubsetCustomers(4,9);
 
         sqlHelper.addNewCustomer(addCustomer);//triggering primary key constraint fail
         Customer specificCustomer = sqlHelper.selectSpecificCustomer("333");
@@ -24,9 +25,8 @@ public class Program {
         //printCustomers(allCustomers);
         //printSpecificCustomer(specificCustomer);
         //printSpecificCustomerByName(specificCustomerByName);
-        printOrderedCustomers(customersGroupedByCountry);
-
-
+        //printOrderedCustomers(customersGroupedByCountry);
+        printCustomers(subSetCustomers);
     }
 
     public static void printCustomers(ArrayList<Customer> customers){

@@ -13,7 +13,7 @@ public class SqlHelper {
     String URL = "jdbc:sqlite::resource:Chinook_Sqlite.sqlite";
     Connection conn = null;
 
-    public ArrayList<Customer> selectAllCustomers(){
+    public ArrayList<Customer> selectAllCustomers() {
         ArrayList<Customer> customers = new ArrayList<Customer>();
         try {
             conn = DriverManager.getConnection(URL);
@@ -37,23 +37,21 @@ public class SqlHelper {
 
                         ));
             }
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println("Something went wrong...");
             System.out.println(ex.toString());
-        }
-        finally {
+        } finally {
             try {
                 conn.close();
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 System.out.println("Something went wrong while closing connection.");
                 System.out.println(ex.toString());
             }
             return customers;
         }
     }
-    public Customer selectSpecificCustomer(String customerId){
+
+    public Customer selectSpecificCustomer(String customerId) {
         Customer customer = null;
         try {
             conn = DriverManager.getConnection(URL);
@@ -76,23 +74,21 @@ public class SqlHelper {
                         resultSet.getString("Email")
                 );
             }
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println("Something went wrong...");
             System.out.println(ex.toString());
-        }
-        finally {
+        } finally {
             try {
                 conn.close();
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 System.out.println("Something went wrong while closing connection.");
                 System.out.println(ex.toString());
             }
             return customer;
         }
     }
-    public Customer selectSpecificCustomerByName(String customerName){
+
+    public Customer selectSpecificCustomerByName(String customerName) {
         Customer customer = null;
         try {
             conn = DriverManager.getConnection(URL);
@@ -101,7 +97,7 @@ public class SqlHelper {
             PreparedStatement preparedStatement =
                     conn.prepareStatement("SELECT CustomerId, FirstName,LastName, Country, PostalCode, Phone, Email FROM Customer WHERE FirstName LIKE ?");
             preparedStatement.setString(1, customerName); // Corresponds to 1st '?' (must match type)
-           //Must search based upon input
+            //Must search based upon input
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -116,23 +112,21 @@ public class SqlHelper {
                         resultSet.getString("Email")
                 );
             }
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println("Something went wrong...");
             System.out.println(ex.toString());
-        }
-        finally {
+        } finally {
             try {
                 conn.close();
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 System.out.println("Something went wrong while closing connection.");
                 System.out.println(ex.toString());
             }
             return customer;
         }
     }
-    public Boolean addNewCustomer(Customer newCustomer){
+
+    public Boolean addNewCustomer(Customer newCustomer) {
         Customer customer = null;
         try {
             conn = DriverManager.getConnection(URL);
@@ -153,22 +147,21 @@ public class SqlHelper {
             System.out.println("Customer added");
             return true;
 
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println("Something went wrong...");
             System.out.println(ex.toString());
-        }
-        finally {
+        } finally {
             try {
                 conn.close();
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 System.out.println("Something went wrong while closing connection.");
                 System.out.println(ex.toString());
             }
             return true;
         }
-    }public Boolean updateCustomer(Customer updateCustomer , Customer newCustomerDetails){
+    }
+
+    public Boolean updateCustomer(Customer updateCustomer, Customer newCustomerDetails) {
         Customer customer = null;
         try {
             conn = DriverManager.getConnection(URL);
@@ -189,23 +182,21 @@ public class SqlHelper {
             System.out.println("Customer added");
             return true;
 
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println("Something went wrong...");
             System.out.println(ex.toString());
-        }
-        finally {
+        } finally {
             try {
                 conn.close();
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 System.out.println("Something went wrong while closing connection.");
                 System.out.println(ex.toString());
             }
             return true;
         }
     }
-    public ArrayList<OrderedCustomer> orderByCountryCount(){
+
+    public ArrayList<OrderedCustomer> orderByCountryCount() {
         ArrayList<OrderedCustomer> orderedCustomers = new ArrayList<OrderedCustomer>();
         try {
             conn = DriverManager.getConnection(URL);
@@ -215,25 +206,63 @@ public class SqlHelper {
                     conn.prepareStatement("SELECT COUNT(CustomerId), Country FROM Customer GROUP BY Country ORDER BY COUNT(CustomerId) DESC");
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 orderedCustomers.add(new OrderedCustomer(resultSet.getString("COUNT(CustomerId)"), resultSet.getString("Country")));
 
             }
 
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println("Something went wrong...");
             System.out.println(ex.toString());
-        }
-        finally {
+        } finally {
             try {
                 conn.close();
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 System.out.println("Something went wrong while closing connection.");
                 System.out.println(ex.toString());
             }
             return orderedCustomers;
         }
+    }
+
+    public ArrayList<Customer> selectSubsetCustomers(int limit, int offset) {
+        ArrayList<Customer> customers = new ArrayList<Customer>();
+        try {
+            conn = DriverManager.getConnection(URL);
+            System.out.println("Connection to SQLite has been established.");
+
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement("SELECT CustomerId, FirstName,LastName, Country, PostalCode, Phone, Email  FROM Customer LIMIT ? ,?");
+            preparedStatement.setInt(1, offset);
+            preparedStatement.setInt(2, limit);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                customers.add(
+                        new Customer(
+                                resultSet.getString("CustomerId"),
+                                resultSet.getString("FirstName"),
+                                resultSet.getString("LastName"),
+                                resultSet.getString("Country"),
+                                resultSet.getString("PostalCode"),
+                                resultSet.getString("Phone"),
+                                resultSet.getString("Email")
+
+                        ));
+            }
+        } catch (Exception ex) {
+            System.out.println("Something went wrong...");
+            System.out.println(ex.toString());
+        } finally {
+            try {
+                conn.close();
+            } catch (Exception ex) {
+                System.out.println("Something went wrong while closing connection.");
+                System.out.println(ex.toString());
+            }
+            return customers;
+        }
+
     }
 }
