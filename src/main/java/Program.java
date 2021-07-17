@@ -72,7 +72,7 @@ public class Program {
         if(customers.size() != 0) {
             for (OrderedCustomer c : customers) {
                 System.out.println("-------------------------------");
-                System.out.println();
+                System.out.println(c.getId());
                 System.out.println(c.getOrder());
             }
         } else {

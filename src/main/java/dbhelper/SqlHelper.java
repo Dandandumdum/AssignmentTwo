@@ -216,8 +216,7 @@ public class SqlHelper {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
-                orderedCustomers.add(new OrderedCustomer(resultSet.getString("Country")));
-                resultSet.getString(1);
+                orderedCustomers.add(new OrderedCustomer(resultSet.getString("COUNT(CustomerId)"), resultSet.getString("Country")));
 
             }
 
