@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class SqlHelper {
     String URL = "jdbc:sqlite::resource:Chinook_Sqlite.sqlite";
     Connection conn = null;
-
+    //Selects and returns all customers from the database. Customers are added to Arraylist customers which is then returned.
     public ArrayList<Customer> selectAllCustomers() {
         ArrayList<Customer> customers = new ArrayList<Customer>();
         try {
@@ -50,7 +50,7 @@ public class SqlHelper {
             return customers;
         }
     }
-
+    //Selects specific customer from database, selected data is chosen by customerId input parameter.
     public Customer selectSpecificCustomer(String customerId) {
         Customer customer = null;
         try {
@@ -87,7 +87,7 @@ public class SqlHelper {
             return customer;
         }
     }
-
+    //Selects specific customer from database, selected data is chosen by customerName input parameter.
     public Customer selectSpecificCustomerByName(String customerName) {
         Customer customer = null;
         try {
@@ -96,8 +96,7 @@ public class SqlHelper {
 
             PreparedStatement preparedStatement =
                     conn.prepareStatement("SELECT CustomerId, FirstName,LastName, Country, PostalCode, Phone, Email FROM Customer WHERE FirstName LIKE ?");
-            preparedStatement.setString(1, customerName); // Corresponds to 1st '?' (must match type)
-            //Must search based upon input
+            preparedStatement.setString(1, customerName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -125,7 +124,7 @@ public class SqlHelper {
             return customer;
         }
     }
-
+    //Adds new Customer object to the database, based upon Customer object parameter
     public Boolean addNewCustomer(Customer newCustomer) {
         Customer customer = null;
         try {
@@ -160,9 +159,10 @@ public class SqlHelper {
             return true;
         }
     }
-
+    //Updates database with a Customer Object based upon a new Customer Objects details, input into methods parameters
+    //,update based upon CustomerId.
     public Boolean updateCustomer(Customer updateCustomer, Customer newCustomerDetails) {
-        Customer customer = null;
+
         try {
             conn = DriverManager.getConnection(URL);
             System.out.println("Connection to SQLite has been established.");
@@ -195,13 +195,13 @@ public class SqlHelper {
             return true;
         }
     }
-
+    //Orders Grouped OrderedCustomer objects based upon the how many are from a distinct country.
+    //Customers are added to Arraylist orderedCustomers which is then returned.
     public ArrayList<OrderedCustomer> orderByCountryCount() {
         ArrayList<OrderedCustomer> orderedCustomers = new ArrayList<OrderedCustomer>();
         try {
             conn = DriverManager.getConnection(URL);
             System.out.println("Connection to SQLite has been established.");
-            //SELECT COUNT(CustomerId), Country FROM Customer GROUP BY Country ORDER BY COUNT(CustomerId) DESC
             PreparedStatement preparedStatement =
                     conn.prepareStatement("SELECT COUNT(CustomerId), Country FROM Customer GROUP BY Country ORDER BY COUNT(CustomerId) DESC");
 
@@ -224,7 +224,9 @@ public class SqlHelper {
             return orderedCustomers;
         }
     }
-
+    //Selects a subset of customers from an ArrayList of all customers. Subset is determined by a limit and an offset.
+    //The offset dictates the starting index, and the limit dictates the amount of objects in the subset.
+    //Customers are added to Arraylist customers which is then returned.
     public ArrayList<Customer> selectSubsetCustomers(int limit, int offset) {
         ArrayList<Customer> customers = new ArrayList<Customer>();
         try {
@@ -265,6 +267,8 @@ public class SqlHelper {
         }
 
     }
+    //Performs an INNER JOIN on Invoice from Customer to allow for a Customer object ArrayList to be sorted by Invoice.total, descending
+    //Customers are added to Arraylist customers which is then returned.
     public ArrayList<Customer> orderedCustomersHighestSpenders() {
         ArrayList<Customer> customers = new ArrayList<Customer>();
         try {
@@ -305,9 +309,9 @@ public class SqlHelper {
             return customers;
         }
     }
-    public Customer specificCustomerPopularGenre(String customerId) {
-        Customer customer = null;
-        String favouriteGenre;
+    //Performs several INNER JOINs to unify the database enabling for Customer data to be order by favourite Genre
+    public CustomerGenre specificCustomerPopularGenre(String customerId) {
+        CustomerGenre customer = null;
         try {
             conn = DriverManager.getConnection(URL);
             System.out.println("Connection to SQLite has been established.");
@@ -326,17 +330,18 @@ public class SqlHelper {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                customer = new Customer(
+                customer = new CustomerGenre(
                         resultSet.getString("CustomerId"),
                         resultSet.getString("FirstName"),
                         resultSet.getString("LastName"),
                         resultSet.getString("Country"),
                         resultSet.getString("PostalCode"),
                         resultSet.getString("Phone"),
-                        resultSet.getString("Email")
+                        resultSet.getString("Email"),
+                        resultSet.getString("Name")
 
                 );
-                favouriteGenre = resultSet.getString("Name");
+
             }
         } catch (Exception ex) {
             System.out.println("Something went wrong...");
@@ -348,7 +353,7 @@ public class SqlHelper {
                 System.out.println("Something went wrong while closing connection.");
                 System.out.println(ex.toString());
             }
-            return customer ;
+            return customer;
         }
     }
 

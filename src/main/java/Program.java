@@ -22,18 +22,19 @@ public class Program {
         Customer specificCustomer = sqlHelper.selectSpecificCustomer("333");
         Customer specificCustomerByName = sqlHelper.selectSpecificCustomerByName("Wayne");
         sqlHelper.updateCustomer(addCustomer, newCustomerDetails);
-        Customer specificCustomerGenre = sqlHelper.specificCustomerPopularGenre("22");//User Input required
+        CustomerGenre specificCustomerGenre = sqlHelper.specificCustomerPopularGenre("11");//User Input required
+
 
 
         //printCustomers(allCustomers);
         //printSpecificCustomer(specificCustomer);
         //printSpecificCustomerByName(specificCustomerByName);
-        //printOrderedCustomers(customersGroupedByCountry);
+        printOrderedCustomers(customersGroupedByCountry);
         //printCustomers(bigSpenderCustomers);
-        printSpecificCustomer(specificCustomerGenre);
+        printSpecificCustomerGenre(specificCustomerGenre);
 
     }
-
+    //Prints all customers from Customer class ArrayList, returning all attributes
     public static void printCustomers(ArrayList<Customer> customers){
         if(customers.size() != 0) {
             for (Customer c : customers) {
@@ -50,13 +51,15 @@ public class Program {
             System.out.println("No customers returned");
         }
     }
+    //Prints a specific customer based upon customerId, returning all attributes
     public static void printSpecificCustomer(Customer customer){
         specificCustomer(customer);
     }
+    //Prints a specific customer based upon customerFirstName, returning all attributes
     public static void printSpecificCustomerByName(Customer customer){
         specificCustomer(customer);
     }
-
+    //Method for printing out Customer class attributes
     private static void specificCustomer(Customer customer) {
         if(customer != null) {
 
@@ -73,6 +76,7 @@ public class Program {
             System.out.println("No customers returned");
         }
     }
+    //Prints all customers from OrderedCustomer class, returning all attributes from OrderedCustomer Class
     public static void printOrderedCustomers(ArrayList<OrderedCustomer> customers){
         if(customers.size() != 0) {
             for (OrderedCustomer c : customers) {
@@ -83,6 +87,25 @@ public class Program {
         } else {
             System.out.println("No customers returned");
         }
+    }
+    //Prints specific CustomerGenre object based upon customerId, returning all attributes from CustomerGenre class
+    public static void printSpecificCustomerGenre(CustomerGenre customer){
+        if(customer != null) {
+
+            System.out.println("-------------------------------");
+            System.out.println(customer.getId());
+            System.out.println(customer.getFirstName());
+            System.out.println(customer.getLastName());
+            System.out.println(customer.getCountry());
+            System.out.println(customer.getPostalCode());
+            System.out.println(customer.getPhoneNumber());
+            System.out.println(customer.getEmail());
+            System.out.println("Favourite customer genre: "+customer.getGenre());
+
+        } else {
+            System.out.println("No customers returned");
+        }
+
     }
 
 }

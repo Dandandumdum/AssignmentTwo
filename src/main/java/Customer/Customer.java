@@ -9,7 +9,8 @@ public class Customer {
     private String phoneNumber;
     private String email;
 
-    public Customer(String id, String firstName, String lastName, String country, String postalCode, String phoneNumber, String email){
+    public Customer(String id, String firstName, String lastName, String country,
+                    String postalCode, String phoneNumber, String email){
         this.setId(id);
         this.setFirstName(firstName);
         this.setLastName(lastName);
