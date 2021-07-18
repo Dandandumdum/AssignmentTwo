@@ -305,5 +305,51 @@ public class SqlHelper {
             return customers;
         }
     }
+    public Customer specificCustomerPopularGenre(String customerId) {
+        Customer customer = null;
+        String favouriteGenre;
+        try {
+            conn = DriverManager.getConnection(URL);
+            System.out.println("Connection to SQLite has been established.");
+
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement("SELECT  Customer.CustomerId, Customer.FirstName,Customer.LastName, Customer.Country,\n" +
+                            "       Customer.PostalCode, Customer.Phone, Customer.Email, Genre.Name\n" +
+                            "FROM Customer INNER JOIN Invoice on Customer.CustomerId = Invoice.CustomerId\n" +
+                            "    INNER JOIN InvoiceLine ON Invoice.InvoiceId = InvoiceLine.InvoiceId\n" +
+                            "INNER JOIN Track on InvoiceLine.TrackId = Track.TrackId\n" +
+                            "INNER JOIN Genre on Track.GenreId = Genre.GenreId WHERE Customer.CustomerId = ?\n" +
+                            "GROUP BY Genre.Name\n" +
+                            "ORDER BY COUNT(InvoiceLine.Quantity) DESC LIMIT 1");
+            preparedStatement.setString(1, customerId); // Corresponds to 1st '?' (must match type)
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                customer = new Customer(
+                        resultSet.getString("CustomerId"),
+                        resultSet.getString("FirstName"),
+                        resultSet.getString("LastName"),
+                        resultSet.getString("Country"),
+                        resultSet.getString("PostalCode"),
+                        resultSet.getString("Phone"),
+                        resultSet.getString("Email")
+
+                );
+                favouriteGenre = resultSet.getString("Name");
+            }
+        } catch (Exception ex) {
+            System.out.println("Something went wrong...");
+            System.out.println(ex.toString());
+        } finally {
+            try {
+                conn.close();
+            } catch (Exception ex) {
+                System.out.println("Something went wrong while closing connection.");
+                System.out.println(ex.toString());
+            }
+            return customer ;
+        }
+    }
 
 }

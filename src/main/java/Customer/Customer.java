@@ -19,6 +19,9 @@ public class Customer {
         this.setEmail(email);
 
     }
+    public Customer(){
+
+    }
 
     public String getId() {
         return Id;

@@ -22,13 +22,16 @@ public class Program {
         Customer specificCustomer = sqlHelper.selectSpecificCustomer("333");
         Customer specificCustomerByName = sqlHelper.selectSpecificCustomerByName("Wayne");
         sqlHelper.updateCustomer(addCustomer, newCustomerDetails);
+        Customer specificCustomerGenre = sqlHelper.specificCustomerPopularGenre("22");//User Input required
 
 
         //printCustomers(allCustomers);
         //printSpecificCustomer(specificCustomer);
         //printSpecificCustomerByName(specificCustomerByName);
         //printOrderedCustomers(customersGroupedByCountry);
-        printCustomers(bigSpenderCustomers);
+        //printCustomers(bigSpenderCustomers);
+        printSpecificCustomer(specificCustomerGenre);
+
     }
 
     public static void printCustomers(ArrayList<Customer> customers){
