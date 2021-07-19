@@ -14,13 +14,13 @@ public class Program {
 
         SqlHelper sqlHelper = new SqlHelper();
         ArrayList<Customer> allCustomers = sqlHelper.selectAllCustomers();
-        ArrayList customersGroupedByCountry = sqlHelper.orderByCountryCount();
-        ArrayList subSetCustomers = sqlHelper.selectSubsetCustomers(4,9);
-        ArrayList bigSpenderCustomers = sqlHelper.orderedCustomersHighestSpenders();
+        ArrayList <OrderedCustomer>customersGroupedByCountry = sqlHelper.orderByCountryCount();
+        ArrayList <Customer>subSetCustomers = sqlHelper.selectSubsetCustomers(4,9);
+        ArrayList <Customer>bigSpenderCustomers = sqlHelper.orderedCustomersHighestSpenders();
 
         sqlHelper.addNewCustomer(addCustomer);//triggering primary key constraint fail
-        Customer specificCustomer = sqlHelper.selectSpecificCustomer("333");
-        Customer specificCustomerByName = sqlHelper.selectSpecificCustomerByName("Wayne");
+        Customer specificCustomer = sqlHelper.selectSpecificCustomer("1");
+        Customer specificCustomerByName = sqlHelper.selectSpecificCustomerByName("");
         sqlHelper.updateCustomer(addCustomer, newCustomerDetails);
         CustomerGenre specificCustomerGenre = sqlHelper.specificCustomerPopularGenre("22");//User Input required
 

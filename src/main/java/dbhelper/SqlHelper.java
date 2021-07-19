@@ -14,7 +14,7 @@ public class SqlHelper {
     Connection conn = null;
     //Selects and returns all customers from the database. Customers are added to Arraylist customers which is then returned.
     public ArrayList<Customer> selectAllCustomers() {
-        ArrayList<Customer> customers = new ArrayList<Customer>();
+        ArrayList<Customer> customers = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(URL);
             System.out.println("Connection to SQLite has been established.");
@@ -59,7 +59,7 @@ public class SqlHelper {
 
             PreparedStatement preparedStatement =
                     conn.prepareStatement("SELECT CustomerId, FirstName,LastName, Country, PostalCode, Phone, Email FROM Customer WHERE CustomerId = ?");
-            preparedStatement.setString(1, customerId); // Corresponds to 1st '?' (must match type)
+            preparedStatement.setString(1, customerId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -126,7 +126,6 @@ public class SqlHelper {
     }
     //Adds new Customer object to the database, based upon Customer object parameter
     public Boolean addNewCustomer(Customer newCustomer) {
-        Customer customer = null;
         try {
             conn = DriverManager.getConnection(URL);
             System.out.println("Connection to SQLite has been established.");
@@ -162,7 +161,6 @@ public class SqlHelper {
     //Updates database with a Customer Object based upon a new Customer Objects details, input into methods parameters
     //,update based upon CustomerId.
     public Boolean updateCustomer(Customer updateCustomer, Customer newCustomerDetails) {
-
         try {
             conn = DriverManager.getConnection(URL);
             System.out.println("Connection to SQLite has been established.");

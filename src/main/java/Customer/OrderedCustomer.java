@@ -1,11 +1,11 @@
 package Customer;
 
-public class OrderedCustomer {
+public class OrderedCustomer extends Customer{
     private String id;
     private String order;
 
     public OrderedCustomer(String id, String order){
-        this.setId(id);
+       this.setId(id);
         this.setOrder(order);
 
     }
@@ -20,11 +20,5 @@ public class OrderedCustomer {
 
 
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
-    public String getId() {
-        return id;
-    }
 }

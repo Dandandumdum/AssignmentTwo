@@ -14,4 +14,12 @@ class SqlHelperTest {
         Customer specificCustomer = sqlChecker.selectSpecificCustomer("22");
         assertTrue(specificCustomer.getFirstName().equals("Heather") && specificCustomer.getLastName().equals("Leacock"));
     }
+
+    @Test
+    void selectedSpecificCustomerByName_customerFirstNameDaanCustomerId8_true(){
+        var customerChecker = new Customer();
+        var sqlChecker = new SqlHelper();
+        Customer specificCustomer = sqlChecker.selectSpecificCustomerByName("Daan");
+        assertTrue(specificCustomer.getId().equals("8"));
+    }
 }
