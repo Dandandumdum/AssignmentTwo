@@ -1,8 +1,11 @@
-package service;
+package com.experisacademy.service;
 
-import dao.CustomerDao;
+import com.experisacademy.dao.CustomerDao;
+import com.experisacademy.model.Customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class CustomerService {
@@ -12,6 +15,10 @@ public class CustomerService {
     @Autowired
     public CustomerService(CustomerDao dao) {
         this.dao = dao;
+    }
+
+    public ArrayList<Customer> getAllDays() {
+        return dao.selectAllCustomers();
     }
 
 }

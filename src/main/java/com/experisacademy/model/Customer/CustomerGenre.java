@@ -1,4 +1,4 @@
-package model.Customer;
+package com.experisacademy.model.Customer;
 
 public class CustomerGenre extends Customer{
     private String genre;

@@ -1,5 +1,5 @@
-package dao;
-import model.Customer.*;
+package com.experisacademy.dao;
+import com.experisacademy.model.Customer.*;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Connection;
@@ -124,7 +124,7 @@ public class CustomerDataAccessService implements CustomerDao {
             return customer;
         }
     }
-    //Adds new model.Customer object to the database, based upon model.Customer object parameter
+    //Adds new com.experisacademy.model.Customer object to the database, based upon com.experisacademy.model.Customer object parameter
     public boolean addNewCustomer(Customer newCustomer) {
         try {
             conn = DriverManager.getConnection(URL);
@@ -142,7 +142,7 @@ public class CustomerDataAccessService implements CustomerDao {
             preparedStatement.executeUpdate();
 
 
-            System.out.println("model.Customer added");
+            System.out.println("com.experisacademy.model.Customer added");
             return true;
 
         } catch (Exception ex) {
@@ -158,7 +158,7 @@ public class CustomerDataAccessService implements CustomerDao {
             return true;
         }
     }
-    //Updates database with a model.Customer Object based upon a new model.Customer Objects details, input into methods parameters
+    //Updates database with a com.experisacademy.model.Customer Object based upon a new com.experisacademy.model.Customer Objects details, input into methods parameters
     //,update based upon CustomerId.
     public boolean updateCustomer(Customer updateCustomer, Customer newCustomerDetails) {
         try {
@@ -177,7 +177,7 @@ public class CustomerDataAccessService implements CustomerDao {
             preparedStatement.setString(8, updateCustomer.getId());
             preparedStatement.executeUpdate();
 
-            System.out.println("model.Customer added");
+            System.out.println("com.experisacademy.model.Customer added");
             return true;
 
         } catch (Exception ex) {
@@ -265,7 +265,7 @@ public class CustomerDataAccessService implements CustomerDao {
         }
 
     }
-    //Performs an INNER JOIN on Invoice from model.Customer to allow for a model.Customer object ArrayList to be sorted by Invoice.total, descending
+    //Performs an INNER JOIN on Invoice from com.experisacademy.model.Customer to allow for a com.experisacademy.model.Customer object ArrayList to be sorted by Invoice.total, descending
     //Customers are added to Arraylist customers which is then returned.
     public ArrayList<Customer> orderedCustomersHighestSpenders() {
         ArrayList<Customer> customers = new ArrayList<Customer>();
@@ -307,7 +307,7 @@ public class CustomerDataAccessService implements CustomerDao {
             return customers;
         }
     }
-    //Performs several INNER JOINs to unify the database enabling for model.Customer data to be order by favourite Genre
+    //Performs several INNER JOINs to unify the database enabling for com.experisacademy.model.Customer data to be order by favourite Genre
     public CustomerGenre specificCustomerPopularGenre(String customerId) {
         CustomerGenre customer = null;
         try {

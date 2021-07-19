@@ -1,7 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import dao.CustomerDataAccessService;
-import model.Customer.*;
+import com.experisacademy.dao.CustomerDataAccessService;
+import com.experisacademy.model.Customer.*;
 import org.junit.jupiter.api.Test;
 
 

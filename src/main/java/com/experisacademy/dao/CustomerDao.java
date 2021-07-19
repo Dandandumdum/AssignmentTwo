@@ -1,8 +1,8 @@
-package dao;
+package com.experisacademy.dao;
 
-import model.Customer.Customer;
-import model.Customer.CustomerGenre;
-import model.Customer.OrderedCustomer;
+import com.experisacademy.model.Customer.Customer;
+import com.experisacademy.model.Customer.CustomerGenre;
+import com.experisacademy.model.Customer.OrderedCustomer;
 
 import java.util.ArrayList;
 
