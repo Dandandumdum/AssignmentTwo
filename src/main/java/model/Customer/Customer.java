@@ -1,4 +1,4 @@
-package Customer;
+package model.Customer;
 
 public class Customer {
     private String Id;
