@@ -1,4 +1,4 @@
-package dbhelper;
+package dao;
 import model.Customer.*;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 @RestController
-public class SqlHelper {
+public class CustomerDataAccessService implements CustomerDao {
     String URL = "jdbc:sqlite::resource:Chinook_Sqlite.sqlite";
     Connection conn = null;
     //Selects and returns all customers from the database. Customers are added to Arraylist customers which is then returned.
@@ -125,7 +125,7 @@ public class SqlHelper {
         }
     }
     //Adds new model.Customer object to the database, based upon model.Customer object parameter
-    public Boolean addNewCustomer(Customer newCustomer) {
+    public boolean addNewCustomer(Customer newCustomer) {
         try {
             conn = DriverManager.getConnection(URL);
             System.out.println("Connection to SQLite has been established.");
@@ -160,7 +160,7 @@ public class SqlHelper {
     }
     //Updates database with a model.Customer Object based upon a new model.Customer Objects details, input into methods parameters
     //,update based upon CustomerId.
-    public Boolean updateCustomer(Customer updateCustomer, Customer newCustomerDetails) {
+    public boolean updateCustomer(Customer updateCustomer, Customer newCustomerDetails) {
         try {
             conn = DriverManager.getConnection(URL);
             System.out.println("Connection to SQLite has been established.");

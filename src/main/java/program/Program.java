@@ -1,6 +1,6 @@
 package program;
+import dao.CustomerDataAccessService;
 import model.Customer.*;
-import dbhelper.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
@@ -13,17 +13,17 @@ public class Program {
         Customer addCustomer = new Customer("333", "Wayne", "WAYNESON", "TEXAS", "1111-222", "777", "waynewayenson@waynenet.net" );
         Customer newCustomerDetails = new Customer("333", "Tom", "WAYNESON", "TEXAS", "1111-222", "777", "waynewayenson@waynenet.net");
 
-        SqlHelper sqlHelper = new SqlHelper();
-        ArrayList<Customer> allCustomers = sqlHelper.selectAllCustomers();
-        ArrayList <OrderedCustomer>customersGroupedByCountry = sqlHelper.orderByCountryCount();
-        ArrayList <Customer>subSetCustomers = sqlHelper.selectSubsetCustomers(4,9);
-        ArrayList <Customer>bigSpenderCustomers = sqlHelper.orderedCustomersHighestSpenders();
+        CustomerDataAccessService customerDataAccessService = new CustomerDataAccessService();
+        ArrayList<Customer> allCustomers = customerDataAccessService.selectAllCustomers();
+        ArrayList <OrderedCustomer>customersGroupedByCountry = customerDataAccessService.orderByCountryCount();
+        ArrayList <Customer>subSetCustomers = customerDataAccessService.selectSubsetCustomers(4,9);
+        ArrayList <Customer>bigSpenderCustomers = customerDataAccessService.orderedCustomersHighestSpenders();
 
-        sqlHelper.addNewCustomer(addCustomer);//triggering primary key constraint fail
-        Customer specificCustomer = sqlHelper.selectSpecificCustomer("1");
-        Customer specificCustomerByName = sqlHelper.selectSpecificCustomerByName("");
-        sqlHelper.updateCustomer(addCustomer, newCustomerDetails);
-        CustomerGenre specificCustomerGenre = sqlHelper.specificCustomerPopularGenre("22");//User Input required
+        customerDataAccessService.addNewCustomer(addCustomer);//triggering primary key constraint fail
+        Customer specificCustomer = customerDataAccessService.selectSpecificCustomer("1");
+        Customer specificCustomerByName = customerDataAccessService.selectSpecificCustomerByName("");
+        customerDataAccessService.updateCustomer(addCustomer, newCustomerDetails);
+        CustomerGenre specificCustomerGenre = customerDataAccessService.specificCustomerPopularGenre("22");//User Input required
 
 
 
