@@ -1,5 +1,5 @@
 package dbhelper;
-import Customer.*;
+import model.Customer.*;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Connection;
@@ -124,7 +124,7 @@ public class SqlHelper {
             return customer;
         }
     }
-    //Adds new Customer object to the database, based upon Customer object parameter
+    //Adds new model.Customer object to the database, based upon model.Customer object parameter
     public Boolean addNewCustomer(Customer newCustomer) {
         try {
             conn = DriverManager.getConnection(URL);
@@ -142,7 +142,7 @@ public class SqlHelper {
             preparedStatement.executeUpdate();
 
 
-            System.out.println("Customer added");
+            System.out.println("model.Customer added");
             return true;
 
         } catch (Exception ex) {
@@ -158,7 +158,7 @@ public class SqlHelper {
             return true;
         }
     }
-    //Updates database with a Customer Object based upon a new Customer Objects details, input into methods parameters
+    //Updates database with a model.Customer Object based upon a new model.Customer Objects details, input into methods parameters
     //,update based upon CustomerId.
     public Boolean updateCustomer(Customer updateCustomer, Customer newCustomerDetails) {
         try {
@@ -177,7 +177,7 @@ public class SqlHelper {
             preparedStatement.setString(8, updateCustomer.getId());
             preparedStatement.executeUpdate();
 
-            System.out.println("Customer added");
+            System.out.println("model.Customer added");
             return true;
 
         } catch (Exception ex) {
@@ -265,7 +265,7 @@ public class SqlHelper {
         }
 
     }
-    //Performs an INNER JOIN on Invoice from Customer to allow for a Customer object ArrayList to be sorted by Invoice.total, descending
+    //Performs an INNER JOIN on Invoice from model.Customer to allow for a model.Customer object ArrayList to be sorted by Invoice.total, descending
     //Customers are added to Arraylist customers which is then returned.
     public ArrayList<Customer> orderedCustomersHighestSpenders() {
         ArrayList<Customer> customers = new ArrayList<Customer>();
@@ -307,7 +307,7 @@ public class SqlHelper {
             return customers;
         }
     }
-    //Performs several INNER JOINs to unify the database enabling for Customer data to be order by favourite Genre
+    //Performs several INNER JOINs to unify the database enabling for model.Customer data to be order by favourite Genre
     public CustomerGenre specificCustomerPopularGenre(String customerId) {
         CustomerGenre customer = null;
         try {

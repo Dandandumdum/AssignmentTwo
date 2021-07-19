@@ -1,6 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import Customer.*;
+import model.Customer.*;
 import dbhelper.*;
 import org.junit.jupiter.api.Test;
 

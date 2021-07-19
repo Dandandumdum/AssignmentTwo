@@ -1,5 +1,6 @@
-import Customer.*;
-import dbhelper.SqlHelper;
+package program;
+import model.Customer.*;
+import dbhelper.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class Program {
         printSpecificCustomerGenre(specificCustomerGenre);
 
     }
-    //Prints all customers from Customer class ArrayList, returning all attributes
+    //Prints all customers from model.Customer class ArrayList, returning all attributes
     public static void printCustomers(ArrayList<Customer> customers){
         if(customers.size() != 0) {
             for (Customer c : customers) {
@@ -59,7 +60,7 @@ public class Program {
     public static void printSpecificCustomerByName(Customer customer){
         specificCustomer(customer);
     }
-    //Method for printing out Customer class attributes
+    //Method for printing out model.Customer class attributes
     private static void specificCustomer(Customer customer) {
         if(customer != null) {
 

@@ -34,5 +34,17 @@
         </library>
       </libraries>
     </data-source>
+    <data-source source="LOCAL" name="Chinook_Sqlite [2]" uuid="70b7ec55-b351-49fb-a7b4-e4c76cbc537f">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\roelia\Documents\Workspace\Java\AssignmentTwo\AssignmentTwo\resources\Chinook_Sqlite.sqlite</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.34.0/sqlite-jdbc-3.34.0.jar</url>
+        </library>
+      </libraries>
+    </data-source>
   </component>
 </project>

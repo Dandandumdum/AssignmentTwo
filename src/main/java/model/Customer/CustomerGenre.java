@@ -1,4 +1,4 @@
-package Customer;
+package model.Customer;
 
 public class CustomerGenre extends Customer{
     private String genre;

@@ -1,4 +1,4 @@
-package Customer;
+package model.Customer;
 
 public class OrderedCustomer extends Customer{
     private String id;
@@ -6,7 +6,7 @@ public class OrderedCustomer extends Customer{
 
     public OrderedCustomer(String id, String order){
        this.setId(id);
-        this.setOrder(order);
+       this.setOrder(order);
 
     }
 
