@@ -1,7 +1,8 @@
 package com.experisacademy.service;
 
 import com.experisacademy.dao.CustomerDao;
-import com.experisacademy.model.Customer.Customer;
+import com.experisacademy.model.Customer;
+import com.experisacademy.model.CustomerCountry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,31 +11,41 @@ import java.util.ArrayList;
 @Service
 public class CustomerService {
 
-    private CustomerDao dao;
+    private CustomerDao customerDao;
 
     @Autowired
-    public CustomerService(CustomerDao dao) {
-        this.dao = dao;
+    public CustomerService(CustomerDao customerDao) {
+        this.customerDao = customerDao;
     }
 
     public ArrayList<Customer> getAllDays() {
-        return dao.selectAllCustomers();
+        return customerDao.selectCustomers();
     }
 
-    public Customer getCustomerById(String id) {
-        return dao.selectSpecificCustomer(id);
+    public Customer getCustomerById(long id) {
+        return customerDao.selectCustomerById(id);
     }
 
-    public Customer getCustomerByName(String name) {
-        return dao.selectSpecificCustomerByName(name);
+    public ArrayList<Customer> getCustomerByName(String name) {
+        return customerDao.selectCustomersByName(name);
     }
 
     public boolean addCustomer(Customer customer) {
-        return dao.addNewCustomer(customer);
+        return customerDao.createCustomer(customer);
     }
 
-    /*public boolean updateCustomer(String id, Customer newCustomer) {
-        return dao.updateCustomer(id, newCustomer);
-    }*/
+    public boolean updateCustomer(long id, Customer newCustomer) {
+        return customerDao.updateCustomer(id, newCustomer);
+    }
+
+    public ArrayList<CustomerCountry> getCountriesByOrderCount() {
+        return customerDao.selectCountriesByOrderCount();
+    }
+
+    public ArrayList<Customer> getCustomerSubset(int limit, int offset) {
+        return customerDao.selectSubsetCustomers(limit, offset);
+    }
+
+
 
 }

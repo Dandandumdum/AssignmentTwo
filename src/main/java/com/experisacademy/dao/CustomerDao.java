@@ -1,32 +1,27 @@
 package com.experisacademy.dao;
 
-import com.experisacademy.model.Customer.Customer;
-import com.experisacademy.model.Customer.CustomerGenre;
-import com.experisacademy.model.Customer.OrderedCustomer;
+import com.experisacademy.model.*;
 
 import java.util.ArrayList;
 
 public interface CustomerDao {
 
-    ArrayList<Customer> selectAllCustomers();
+    ArrayList<Customer> selectCustomers();
 
-    Customer selectSpecificCustomer(String id);
+    Customer selectCustomerById(long id);
 
-    Customer selectSpecificCustomerByName(String name);
+    ArrayList<Customer> selectCustomersByName(String name);
 
-    boolean addNewCustomer(Customer customer);
+    boolean createCustomer(Customer customer);
 
-    boolean updateCustomer(Customer updateCustomer, Customer newCustomerDetails);
+    boolean updateCustomer(long id, Customer newCustomerDetails);
 
-    ArrayList<OrderedCustomer> orderByCountryCount();
+    ArrayList<CustomerCountry> selectCountriesByOrderCount();
 
     ArrayList<Customer> selectSubsetCustomers(int limit, int offset);
 
-    ArrayList<Customer> orderedCustomersHighestSpenders();
+    ArrayList<CustomerSpender> orderedCustomersHighestSpenders();
 
-    CustomerGenre specificCustomerPopularGenre(String id);
-
-
-
+    CustomerGenre specificCustomerPopularGenre(long id);
 
 }
