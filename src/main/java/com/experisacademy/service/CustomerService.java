@@ -21,4 +21,20 @@ public class CustomerService {
         return dao.selectAllCustomers();
     }
 
+    public Customer getCustomerById(String id) {
+        return dao.selectSpecificCustomer(id);
+    }
+
+    public Customer getCustomerByName(String name) {
+        return dao.selectSpecificCustomerByName(name);
+    }
+
+    public boolean addCustomer(Customer customer) {
+        return dao.addNewCustomer(customer);
+    }
+
+    /*public boolean updateCustomer(String id, Customer newCustomer) {
+        return dao.updateCustomer(id, newCustomer);
+    }*/
+
 }
