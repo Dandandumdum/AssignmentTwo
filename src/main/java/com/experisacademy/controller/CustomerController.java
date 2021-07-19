@@ -1,4 +1,4 @@
-package com.experisacademy.api;
+package com.experisacademy.controller;
 
 import com.experisacademy.model.Customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
