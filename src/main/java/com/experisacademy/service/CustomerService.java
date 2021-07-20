@@ -3,6 +3,7 @@ package com.experisacademy.service;
 import com.experisacademy.dao.CustomerDao;
 import com.experisacademy.model.Customer;
 import com.experisacademy.model.CustomerCountry;
+import com.experisacademy.model.CustomerGenre;
 import com.experisacademy.model.CustomerSpender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,8 @@ public class CustomerService {
     public ArrayList<CustomerSpender> getCustomerSpender() {
         return customerDao.selectCustomersHighestSpenders();
     }
+
+    public CustomerGenre getCustomerFavouriteGenre(long id){return customerDao.specificCustomerFavouriteGenre(id);}
 
 
 
