@@ -10,7 +10,7 @@ import com.experisacademy.service.CustomerService;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/api/customer")
+@RequestMapping("/api/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -20,33 +20,33 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/customer/{id}")
     public Customer searchByCustomerId(@PathVariable long id){
         return customerService.getCustomerById(id);
     }
     //Requests customer details based upon customer name
-    @GetMapping("/name/{firstName}")
+    @GetMapping("customer/{firstName}")
     public ArrayList<Customer> searchByCustomerName(@PathVariable String firstName){
         return customerService.getCustomerByName(firstName);
     }
     //Requests a list of all customers
-    @GetMapping("/customers")
+    @GetMapping
     public ArrayList<Customer> showAllCustomers(){
         return customerService.getCustomers();
     }
     //Requests the amount of customers registered to each country, then returns a list of those countries in descending order
-    @GetMapping("/customers/country")
+    @GetMapping("/country")
     public ArrayList<CustomerCountry> showCustomerOrdersByCountry() {
         return customerService.getCountriesByOrderCount();
     }
     //Requests a an ordered list of customers whom spend the most, in descending order
-    @GetMapping("/customers/spending")
+    @GetMapping("/spending")
     public ArrayList<CustomerSpender> showCustomersOrderedBySpending() {
         return customerService.getCustomerSpender();
 
     }
     //Requests a subset of customers based upon limit and offset
-    @GetMapping("/customers/subset/{limit}/{offset}")
+    @GetMapping("/subset/{limit}/{offset}")
     public ArrayList<Customer> getSubsetCustomers(@PathVariable int limit,
                                                      @PathVariable int offset) {
         return customerService.getCustomerSubset(limit, offset);
