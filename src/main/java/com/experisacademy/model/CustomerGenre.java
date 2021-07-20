@@ -1,6 +1,6 @@
 package com.experisacademy.model;
 
-public class CustomerGenre extends Customer{
+public class CustomerGenre extends Customer {
     private String genre;
 
     public CustomerGenre(long id, String firstName, String lastName, String country,

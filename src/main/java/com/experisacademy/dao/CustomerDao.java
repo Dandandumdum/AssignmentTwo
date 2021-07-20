@@ -1,5 +1,7 @@
 package com.experisacademy.dao;
 
+import com.experisacademy.model.CustomerCountry;
+import com.experisacademy.model.Customer;
 import com.experisacademy.model.*;
 
 import java.util.ArrayList;
