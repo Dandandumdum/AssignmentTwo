@@ -1,6 +1,6 @@
 package dao;
 import model.Customer.*;
-import org.springframework.web.bind.annotation.RestController;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-@RestController
 public class CustomerDataAccessService implements CustomerDao {
     String URL = "jdbc:sqlite::resource:Chinook_Sqlite.sqlite";
     Connection conn = null;
@@ -126,6 +125,7 @@ public class CustomerDataAccessService implements CustomerDao {
     }
     //Adds new model.Customer object to the database, based upon model.Customer object parameter
     public boolean addNewCustomer(Customer newCustomer) {
+        Boolean success = false;
         try {
             conn = DriverManager.getConnection(URL);
             System.out.println("Connection to SQLite has been established.");
@@ -139,7 +139,8 @@ public class CustomerDataAccessService implements CustomerDao {
             preparedStatement.setString(5, newCustomer.getPostalCode());
             preparedStatement.setString(6, newCustomer.getPhoneNumber());
             preparedStatement.setString(7, newCustomer.getEmail());
-            preparedStatement.executeUpdate();
+            int result = preparedStatement.executeUpdate();
+            success = (result != 0);
 
 
             System.out.println("model.Customer added");
@@ -155,12 +156,12 @@ public class CustomerDataAccessService implements CustomerDao {
                 System.out.println("Something went wrong while closing connection.");
                 System.out.println(ex.toString());
             }
-            return true;
-        }
+
+        }return success;
     }
     //Updates database with a model.Customer Object based upon a new model.Customer Objects details, input into methods parameters
-    //,update based upon CustomerId.
-    public boolean updateCustomer(Customer updateCustomer, Customer newCustomerDetails) {
+    public boolean updateCustomer(Customer newCustomerDetails) {
+        Boolean success = false;
         try {
             conn = DriverManager.getConnection(URL);
             System.out.println("Connection to SQLite has been established.");
@@ -174,11 +175,12 @@ public class CustomerDataAccessService implements CustomerDao {
             preparedStatement.setString(5, newCustomerDetails.getPostalCode());
             preparedStatement.setString(6, newCustomerDetails.getPhoneNumber());
             preparedStatement.setString(7, newCustomerDetails.getEmail());
-            preparedStatement.setString(8, updateCustomer.getId());
-            preparedStatement.executeUpdate();
+            preparedStatement.setString(8, newCustomerDetails.getId());
+            int result = preparedStatement.executeUpdate();
+            success = (result != 0);
 
             System.out.println("model.Customer added");
-            return true;
+
 
         } catch (Exception ex) {
             System.out.println("Something went wrong...");
@@ -190,8 +192,8 @@ public class CustomerDataAccessService implements CustomerDao {
                 System.out.println("Something went wrong while closing connection.");
                 System.out.println(ex.toString());
             }
-            return true;
-        }
+
+        }return success;
     }
     //Orders Grouped OrderedCustomer objects based upon the how many are from a distinct country.
     //Customers are added to Arraylist orderedCustomers which is then returned.
@@ -225,7 +227,7 @@ public class CustomerDataAccessService implements CustomerDao {
     //Selects a subset of customers from an ArrayList of all customers. Subset is determined by a limit and an offset.
     //The offset dictates the starting index, and the limit dictates the amount of objects in the subset.
     //Customers are added to Arraylist customers which is then returned.
-    public ArrayList<Customer> selectSubsetCustomers(int limit, int offset) {
+    public ArrayList<Customer> selectSubsetCustomers(String limit, String offset) {
         ArrayList<Customer> customers = new ArrayList<Customer>();
         try {
             conn = DriverManager.getConnection(URL);
@@ -233,8 +235,8 @@ public class CustomerDataAccessService implements CustomerDao {
 
             PreparedStatement preparedStatement =
                     conn.prepareStatement("SELECT CustomerId, FirstName,LastName, Country, PostalCode, Phone, Email  FROM Customer LIMIT ? ,?");
-            preparedStatement.setInt(1, offset);
-            preparedStatement.setInt(2, limit);
+            preparedStatement.setInt(1, Integer.parseInt(offset));
+            preparedStatement.setInt(2, Integer.parseInt(limit));
 
             ResultSet resultSet = preparedStatement.executeQuery();
 

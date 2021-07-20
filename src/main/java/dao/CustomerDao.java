@@ -16,11 +16,11 @@ public interface CustomerDao {
 
     boolean addNewCustomer(Customer customer);
 
-    boolean updateCustomer(Customer updateCustomer, Customer newCustomerDetails);
+    boolean updateCustomer( Customer newCustomerDetails);
 
     ArrayList<OrderedCustomer> orderByCountryCount();
 
-    ArrayList<Customer> selectSubsetCustomers(int limit, int offset);
+    ArrayList<Customer> selectSubsetCustomers(String limit, String offset);
 
     ArrayList<Customer> orderedCustomersHighestSpenders();
 
