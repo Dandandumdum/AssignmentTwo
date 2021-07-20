@@ -3,6 +3,7 @@ package com.experisacademy.service;
 import com.experisacademy.dao.CustomerDao;
 import com.experisacademy.model.Customer;
 import com.experisacademy.model.CustomerCountry;
+import com.experisacademy.model.CustomerSpender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class CustomerService {
         this.customerDao = customerDao;
     }
 
-    public ArrayList<Customer> getAllDays() {
+    public ArrayList<Customer> getCustomers() {
         return customerDao.selectCustomers();
     }
 
@@ -44,6 +45,10 @@ public class CustomerService {
 
     public ArrayList<Customer> getCustomerSubset(int limit, int offset) {
         return customerDao.selectSubsetCustomers(limit, offset);
+    }
+
+    public ArrayList<CustomerSpender> getCustomerSpender() {
+        return customerDao.selectCustomersHighestSpenders();
     }
 
 

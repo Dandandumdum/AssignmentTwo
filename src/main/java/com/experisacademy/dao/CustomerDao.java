@@ -22,7 +22,7 @@ public interface CustomerDao {
 
     ArrayList<Customer> selectSubsetCustomers(int limit, int offset);
 
-    ArrayList<CustomerSpender> orderedCustomersHighestSpenders();
+    ArrayList<CustomerSpender> selectCustomersHighestSpenders();
 
     CustomerGenre specificCustomerPopularGenre(long id);
 

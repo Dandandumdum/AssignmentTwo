@@ -174,7 +174,7 @@ public class CustomerRepository implements CustomerDao {
 
     //Performs an INNER JOIN on Invoice from com.experisacademy.model.Customer to allow for a com.experisacademy.model.Customer object ArrayList to be sorted by Invoice.total, descending
     //Customers are added to Arraylist customers which is then returned.
-    public ArrayList<CustomerSpender> orderedCustomersHighestSpenders() {
+    public ArrayList<CustomerSpender> selectCustomersHighestSpenders() {
         ArrayList<CustomerSpender> customers = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(URL)) {
             System.out.println("Connection to SQLite has been established.");
