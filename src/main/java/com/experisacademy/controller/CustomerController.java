@@ -1,11 +1,8 @@
 package com.experisacademy.controller;
 
-import com.experisacademy.model.Customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.experisacademy.service.CustomerService;
-
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/customer")
@@ -18,7 +15,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/customers")
+    /*@GetMapping("/customers")
     public ArrayList<Customer> getAllDays() {
         return customerService.getAllDays();
     }
@@ -37,6 +34,13 @@ public class CustomerController {
     public boolean addCustomer(@RequestBody Customer customer) {
         return customerService.addCustomer(customer);
     }
+
+    @PutMapping("{id}")
+    public boolean updateCustomer(@PathVariable String id,
+                                  @NonNull @RequestBody Customer customer) {
+        return false;
+
+    }*/
 
 
 
