@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 @RestController
 public class CustomerRepository implements CustomerDao {
-    String URL = "jdbc:sqlite::resource:Chinook_Sqlite.sqlite";
+    private static final String URL = ConnectionHelper.getConnectionURL();
 
     //Selects and returns all customers from the database. Customers are added to Arraylist customers which is then returned.
     public ArrayList<Customer> selectCustomers() {
