@@ -20,12 +20,12 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/customer/{id}")
+    @GetMapping("/id/{id}")
     public Customer searchByCustomerId(@PathVariable long id){
         return customerService.getCustomerById(id);
     }
     //Requests customer details based upon customer name
-    @GetMapping("customer/{firstName}")
+    @GetMapping("/name/{firstName}")
     public ArrayList<Customer> searchByCustomerName(@PathVariable String firstName){
         return customerService.getCustomerByName(firstName);
     }
@@ -64,7 +64,7 @@ public class CustomerController {
         return customerService.addCustomer(customer);
     }
     //Updates a new customer
-    @PutMapping("id/{id}")
+    @PutMapping("/id/{id}")
     public Boolean updateCustomer(@PathVariable long id, @RequestBody Customer customer ){
         return customerService.updateCustomer(id, customer);
     }
