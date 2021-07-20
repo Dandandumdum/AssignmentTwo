@@ -22,4 +22,27 @@ class SqlHelperTest {
         ArrayList<Customer> specificCustomers = sqlChecker.selectCustomersByName("Daan");
         assertTrue(specificCustomers.get(0).getFirstName().equals("Daan"));
     }
+
+    @Test
+    void selectedSubsetCustomers_customerSubsetLimit3Offset5_true(){
+        var sqlChecker = new CustomerRepository();
+        ArrayList<Customer>subsetCustomers = sqlChecker.selectSubsetCustomers(3,5);
+        long[] arr2 =new long[]{6,8};
+        long[] arr =new long[]{subsetCustomers.get(0).getId(), subsetCustomers.get(2).getId()};
+        assertArrayEquals(arr2,arr);
+
+    }
+    @Test
+    void creatCustomer_customerId333_true(){
+        var sqlChecker = new CustomerRepository();
+        Customer customer = new Customer(333,
+                 "Wayne",
+                 "WAYNESON",
+                "TEXAS",
+                 1111-222,
+                "777",
+                 "waynewayenson@waynenet.net");
+        assertTrue(sqlChecker.selectCustomerById(333).getFirstName().equals("Wayne"));
+    }
+
 }

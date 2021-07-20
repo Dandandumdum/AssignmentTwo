@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import com.experisacademy.service.CustomerService;
 
 import java.util.ArrayList;
-
 @RestController
 @RequestMapping("/api/customers")
 public class CustomerController {

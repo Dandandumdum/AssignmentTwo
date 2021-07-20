@@ -204,7 +204,7 @@ public class CustomerRepository implements CustomerDao {
     }
 
     //Performs several INNER JOINs to unify the database enabling for com.experisacademy.model.Customer data to be order by favourite Genre
-    public CustomerGenre specificCustomerPopularGenre(long customerId) {
+    public CustomerGenre specificCustomerFavouriteGenre(long customerId) {
         CustomerGenre customer = null;
         try (Connection conn = DriverManager.getConnection(URL)) {
             System.out.println("Connection to SQLite has been established.");
@@ -219,6 +219,19 @@ public class CustomerRepository implements CustomerDao {
                             INNER JOIN Genre on Track.GenreId = Genre.GenreId WHERE Customer.CustomerId = ?
                             GROUP BY Genre.Name
                             ORDER BY COUNT(InvoiceLine.Quantity) DESC LIMIT 1""");
+            /*SELECT  Customer.CustomerId, Customer.FirstName,Customer.LastName, Customer.Country,
+                    Customer.PostalCode, Customer.Phone, Customer.Email, Genre.Name ,
+                    rank() over ( ORDER BY COUNT(InvoiceLine.Quantity) DESC ) as rank
+
+            FROM Customer
+            INNER JOIN  Invoice on Customer.CustomerId = Invoice.CustomerId
+            INNER JOIN InvoiceLine ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+            INNER JOIN Track on InvoiceLine.TrackId = Track.TrackId
+            INNER JOIN Genre on Track.GenreId = Genre.GenreId
+
+            WHERE Customer.CustomerId = ?
+
+            GROUP BY Genre.Name;*/
             preparedStatement.setLong(1, customerId); // Corresponds to 1st '?' (must match type)
 
             ResultSet resultSet = preparedStatement.executeQuery();
