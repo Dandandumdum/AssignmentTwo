@@ -1,6 +1,7 @@
 package program;
 import dao.CustomerDataAccessService;
 import model.Customer.*;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
@@ -8,31 +9,8 @@ import java.util.ArrayList;
 @SpringBootApplication
 public class Program {
     public static void main(String[] args) {
-        //SpringApplication.run(Program.class, args);
+        SpringApplication.run(Program.class, args);
         //Should make Test case for these instead.
-        Customer addCustomer = new Customer("333", "Wayne", "WAYNESON", "TEXAS", "1111-222", "777", "waynewayenson@waynenet.net" );
-        Customer newCustomerDetails = new Customer("333", "Tom", "WAYNESON", "TEXAS", "1111-222", "777", "waynewayenson@waynenet.net");
-
-        CustomerDataAccessService customerDataAccessService = new CustomerDataAccessService();
-        ArrayList<Customer> allCustomers = customerDataAccessService.selectAllCustomers();
-        ArrayList <OrderedCustomer>customersGroupedByCountry = customerDataAccessService.orderByCountryCount();
-        ArrayList <Customer>subSetCustomers = customerDataAccessService.selectSubsetCustomers(4,9);
-        ArrayList <Customer>bigSpenderCustomers = customerDataAccessService.orderedCustomersHighestSpenders();
-
-        customerDataAccessService.addNewCustomer(addCustomer);//triggering primary key constraint fail
-        Customer specificCustomer = customerDataAccessService.selectSpecificCustomer("1");
-        Customer specificCustomerByName = customerDataAccessService.selectSpecificCustomerByName("");
-        customerDataAccessService.updateCustomer(addCustomer, newCustomerDetails);
-        CustomerGenre specificCustomerGenre = customerDataAccessService.specificCustomerPopularGenre("22");//User Input required
-
-
-
-        //printCustomers(allCustomers);
-        //printSpecificCustomer(specificCustomer);
-        //printSpecificCustomerByName(specificCustomerByName);
-        //printOrderedCustomers(customersGroupedByCountry);
-        //printCustomers(bigSpenderCustomers);
-        printSpecificCustomerGenre(specificCustomerGenre);
 
     }
     //Prints all customers from model.Customer class ArrayList, returning all attributes
