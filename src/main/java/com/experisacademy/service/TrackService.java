@@ -33,5 +33,8 @@ public class TrackService {
             throw new IllegalArgumentException("Must specify a correct table name");
         return trackDao.select(table, limit);
     }
+    public ArrayList<String> searchMusic(String song){
+        return trackDao.selectTrack(song);
+    }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -37,8 +38,8 @@ public class ViewController {
     }
 
     @GetMapping("/results")
-    public String results(@ModelAttribute Track track, BindingResult error, Model model) {
-        model.addAttribute("greeting", "Welcome to the past with Thymeleaf");
+    public String results(@PathVariable String songName, BindingResult error, Model model) {
+        model.addAttribute("greeting", trackService.searchMusic(songName));
         return "results";
     }
 

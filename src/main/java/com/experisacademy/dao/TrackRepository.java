@@ -1,12 +1,9 @@
 package com.experisacademy.dao;
 
-import com.experisacademy.model.Track;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Repository("tracks")
 public class TrackRepository implements TrackDao {
@@ -37,7 +34,7 @@ public class TrackRepository implements TrackDao {
         return names;
     }
     @Override
-    public Track selectTrack(String trackName) {
+    public ArrayList<String> selectTrack(String trackName) {
         ArrayList<String> song = new ArrayList<>();
 
         try(Connection con = DriverManager.getConnection(ConnectionHelper.getConnectionURL())) {
@@ -65,6 +62,6 @@ public class TrackRepository implements TrackDao {
         }
 
 
-        return null;
+        return song;
     }
 }
