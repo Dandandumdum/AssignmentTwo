@@ -52,8 +52,8 @@ public class CustomerService {
         return customerDao.selectCustomersHighestSpenders();
     }
 
-    public CustomerGenre getCustomerFavouriteGenre(long id){return customerDao.specificCustomerFavouriteGenre(id);}
-
-
+    public CustomerGenre getCustomerPopularGenre(long id) {
+        return customerDao.selectCustomerPopularGenre(id);
+    }
 
 }
