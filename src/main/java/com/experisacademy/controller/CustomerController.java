@@ -2,6 +2,7 @@ package com.experisacademy.controller;
 
 import com.experisacademy.model.Customer;
 import com.experisacademy.model.CustomerCountry;
+import com.experisacademy.model.CustomerGenre;
 import com.experisacademy.model.CustomerSpender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,7 @@ import com.experisacademy.service.CustomerService;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/api/v1/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -53,11 +54,10 @@ public class CustomerController {
 
     }
     //Requests a specific customers favourite genre along with their normal details, by customer Id
-    /*@GetMapping("/api/getCustomerByIdShowFavouriteGenre")
-    public String searchByCustomerNameFavouriteGenre(@RequestParam("query")String terms){
-        CustomerGenre customer = customerDataAccessService.specificCustomerPopularGenre(terms);
-        return customerToStringGenre(customer);
-    }*/
+    @GetMapping("/customer/genre/{id}")
+    public CustomerGenre searchByCustomerNameFavouriteGenre(@PathVariable long id){
+        return customerService.getCustomerPopularGenre(id);
+    }
     //Posts a new customer
     @PostMapping
     public Boolean createCustomer(@RequestBody Customer customer){
