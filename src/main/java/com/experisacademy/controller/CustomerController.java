@@ -59,6 +59,7 @@ public class CustomerController {
     }
     //Posts a new customer
     @PostMapping
+
     public Boolean createCustomer(@RequestBody Customer customer){
         return customerService.addCustomer(customer);
     }

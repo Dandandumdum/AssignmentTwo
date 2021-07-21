@@ -5,6 +5,7 @@ public class Customer extends Entity {
     private String firstName, lastName, country, phoneNumber, email;
     private int postalCode;
 
+
     public Customer(long id, String firstName, String lastName, String country, int postalCode, String phoneNumber, String email) {
         super(id);
         this.firstName = firstName;
@@ -13,6 +14,10 @@ public class Customer extends Entity {
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
         this.email = email;
+    }
+
+    public Customer() {
+        super();
     }
 
     public String getFirstName() {

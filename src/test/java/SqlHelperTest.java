@@ -45,4 +45,5 @@ class SqlHelperTest {
         assertTrue(sqlChecker.selectCustomerById(333).getFirstName().equals("Wayne"));
     }
 
+
 }
