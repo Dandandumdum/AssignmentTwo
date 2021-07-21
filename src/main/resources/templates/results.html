@@ -22,7 +22,7 @@
                     <form action="#" th:action="@{/results}" th:object="${search}" method="post">
                         <div class="form-group">
                             <label for="inputId">Track name</label>
-                            <input type="text" class="form-control" id="inputId" th:field="*{}" required />
+                            <input type="text" class="form-control" id="inputId" th:field="*{songName}" required />
                         </div>
                         <button type="submit" class="btn btn-success">Search</button>
                     </form>
