@@ -70,10 +70,10 @@ public class ThymeController {
     //Requests a specific customers favourite genre along with their normal details, by customer Id
     @GetMapping("/genre/id/{id}")
     public String searchByCustomerIdFavouriteGenre(@PathVariable long id, Model model){
-        model.addAttribute("customer",customerService.getCustomerFavouriteGenre(id));
+        model.addAttribute("customer",customerService.getCustomerPopularGenre(id));
         return "get-by-genre";
     }
-    @RequestMapping(value = "/add-customers", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/add-customers", method = RequestMethod.GET)
     public String createCustomer(Model model){
         model.addAttribute("customer", new Customer());
         return "add-customers";
@@ -90,7 +90,7 @@ public class ThymeController {
         model.addAttribute( "customer",customerService.updateCustomer(id, customer));
         return "update-customers";
     }
-
+*/
 
 
 }
