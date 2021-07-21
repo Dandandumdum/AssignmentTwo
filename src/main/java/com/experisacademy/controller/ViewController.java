@@ -39,7 +39,7 @@ public class ViewController {
 
     @GetMapping("/results")
     public String results(@PathVariable String songName, BindingResult error, Model model) {
-        model.addAttribute("greeting", trackService.searchMusic(songName));
+        model.addAttribute("search", trackService.searchMusic(songName));
         return "results";
     }
 

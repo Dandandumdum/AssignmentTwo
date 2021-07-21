@@ -1,10 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/main.css}">
+<script th:src="@{/js/bootstrap.min.js}" ></script>
 <head>
     <meta charset="UTF-8">
-    <title>Track Results</title>
+    <title>Search Music</title>
 </head>
 <body>
-  <h1></h1>
+
+
+<div class="container inner-padded">
+
+    <div class="row justify-content-center align-items-center">
+        <h1 class="display-3">Search Music</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 offset-3">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="card-body">
+                    <form action="#" th:action="@{/results}" th:object="${search}" method="post">
+                        <div class="form-group">
+                            <label for="inputId">Track name</label>
+                            <input type="text" class="form-control" id="inputId" th:field="*{}" required />
+                        </div>
+                        <button type="submit" class="btn btn-success">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
 </body>
 </html>
