@@ -42,22 +42,21 @@ public class TrackRepository implements TrackDao {
         try (Connection con = DriverManager.getConnection(URL)) {
             System.out.println("Connection to SQLite has been established.");
             PreparedStatement preparedStatement = con.prepareStatement("""
-                    SELECT Name, Title, Artist.Name, Genre.Name
-                    FROM Track, Album
-                    WHERE Track.AlbumId = Album.AlbumId AND Album.ArtistId = Artist.ArtistId
-                    AND Track.GenreId = Genre.GenreId AND Track.Name = ?
+                    SELECT t.Name AS TitleName, alb.Title AS AlbumTitle, art.Name AS ArtistName, g.Name AS GenreName
+                    FROM Track AS t, Album AS alb, Artist AS art, Genre as g
+                    WHERE t.AlbumId = alb.AlbumId AND alb.ArtistId = art.ArtistId
+                    AND t.GenreId = g.GenreId AND t.Name = ?
                     """);
             preparedStatement.setString(1, trackName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             Track track = null;
-            System.out.println(resultSet.getString("Name"));
             while (resultSet.next()) {
                 track = new Track(
-                        resultSet.getString("Track.Name"),
-                        resultSet.getString("Artist.Name"),
-                        resultSet.getString("Album.Name"),
-                        resultSet.getString("Genre.Name"));
+                        resultSet.getString("TitleName"),
+                        resultSet.getString("ArtistName"),
+                        resultSet.getString("AlbumTitle"),
+                        resultSet.getString("GenreName"));
             }
             System.out.println("TEST2");
 
