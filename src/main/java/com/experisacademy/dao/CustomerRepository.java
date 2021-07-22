@@ -229,16 +229,16 @@ public class CustomerRepository implements CustomerDao {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
-                customer = new CustomerGenre(
-                        resultSet.getLong("customerid"),
-                        resultSet.getString("firstname"),
-                        resultSet.getString("lastname"),
-                        resultSet.getString("firstname")
+            customer = new CustomerGenre(
+                    resultSet.getLong("customerid"),
+                    resultSet.getString("firstname"),
+                    resultSet.getString("lastname")
+            );
+            while(resultSet.next())
+                customer.addGenre(resultSet.getString("Name"));
 
-                );
 
-            }
+
         } catch (Exception ex) {
             System.out.println("Something went wrong...\n" + ex);
         }

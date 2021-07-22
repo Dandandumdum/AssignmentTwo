@@ -4,13 +4,12 @@ import java.util.ArrayList;
 
 public class CustomerGenre extends Entity {
     private String firstName, lastName;
-    private String genre;
+    private ArrayList<String> genres = new ArrayList<>();
 
-    public CustomerGenre(long id, String firstName, String lastName, String genre) {
+    public CustomerGenre(long id, String firstName, String lastName) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
-        this.genre = genre;
 
     }
 
@@ -22,8 +21,12 @@ public class CustomerGenre extends Entity {
         return lastName;
     }
 
-    public String getGenre() {
-        return genre;
+    public ArrayList<String> getGenre() {
+        return genres;
+    }
+
+    public void addGenre(String genre) {
+        genres.add(genre);
     }
 
 }
