@@ -22,6 +22,22 @@ These were:
 Thymeleaf was used to created an appealing front-end that the user could use to search for tracks in the Chinook SQL lite database and retrieve the track name, artist, album 
 and genre.
 
-Several endpoint requirements were also catered for by creating a RESTApi in Java, which were then tested using POSTMAN.
+The following endpoints were created in order to use respective REST method, which have been tested using POSTMAN:
+
+- GET
+  - /api/v1/customers
+    - /id/{id}
+    - /name/{firstName}
+    - /country
+    - /spending
+    - /subset/{limit}/{offset}
+    - /genre/customer/{id}
+  - /api/v1/tracks
+    - /
+    - /results
+- POST
+  - /api/v1/customers
+- PUT
+  - /api/v1/customers/id/{id}
 
 Authors Daniel Dumville and Robin Eliasson
