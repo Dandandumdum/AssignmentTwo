@@ -6,12 +6,31 @@
     <title>Track Results</title>
 </head>
 <body>
-<div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${success} == false">
-    <strong>No such track!</strong>
+<h1 class="page-header text-center">Track Info</h1>
+<div>
+
+    <div class="alert alert-success alert-dismissible show fade" role="alert"> <!-- .fade doesn't seem to work on microsoft edge (Works fine in Chrome) -->
+        <strong>Track found!</strong> The information is presented below!
+    </div>
 </div>
-<div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${success}">
-    <strong>Track found!</strong>
+<div class="container">
+    <div class="row">
+        <h3><label class="col-lg-3 label-info label">Track Name</label></h3>
+        <h4><div th:text="${track.getName()}"></div></h4>
+    </div>
+    <div class="row">
+        <h3><label class="col-lg-3 label-info label">Artist</label></h3>
+        <h4><div th:text="${track.getArtist()}"></div></h4>
+    </div>
+    <div class="row">
+        <h3><label class="col-lg-3 label-info label">Album</label></h3>
+        <h4><div th:text="${track.getAlbum()}"></div></h4>
+    </div>
+    <div class="row">
+        <h3><label class="col-lg-3 label-info label">Genre</label></h3>
+        <h4><div th:text="${track.getGenre()}"></div></h4>
+    </div>
 </div>
-<h8 th:text="${track}"></h8>
+
 </body>
 </html>
