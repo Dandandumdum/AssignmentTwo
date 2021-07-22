@@ -50,21 +50,15 @@ public class TrackRepository implements TrackDao {
             preparedStatement.setString(1, trackName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            Track track = null;
-            while (resultSet.next()) {
-                track = new Track(
-                        resultSet.getString("TitleName"),
-                        resultSet.getString("ArtistName"),
-                        resultSet.getString("AlbumTitle"),
-                        resultSet.getString("GenreName"));
-            }
-            System.out.println("TEST2");
-
-            return track;
+            return new Track(
+                    resultSet.getString("TitleName"),
+                    resultSet.getString("ArtistName"),
+                    resultSet.getString("AlbumTitle"),
+                    resultSet.getString("GenreName"));
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+            return null;
         }
-        return null;
     }
 }
