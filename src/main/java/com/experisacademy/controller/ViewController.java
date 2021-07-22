@@ -38,8 +38,13 @@ public class ViewController {
 
     @GetMapping("/results")
     public String displayResults(Model model, @RequestParam String name) {
-        name = capitalizeEachWord(name);
-        model.addAttribute("name", trackService.getTrack(name));
+        Track track = trackService.getTrack(capitalizeEachWord(name));
+        if(track != null) {
+            model.addAttribute("success", true);
+            model.addAttribute("track", track);
+        } else {
+            model.addAttribute("success", false);
+        }
         return "results";
     }
 

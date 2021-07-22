@@ -57,7 +57,6 @@ public class TrackRepository implements TrackDao {
                     resultSet.getString("GenreName"));
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
             return null;
         }
     }

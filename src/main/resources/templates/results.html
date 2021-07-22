@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <head>
     <meta charset="UTF-8">
     <title>Track Results</title>
 </head>
 <body>
-    <h8 th:text="${name}"></h8>
+<div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${success} == false">
+    <strong>No such track!</strong>
+</div>
+<div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${success}">
+    <strong>Track found!</strong>
+</div>
+<h8 th:text="${track}"></h8>
 </body>
 </html>
