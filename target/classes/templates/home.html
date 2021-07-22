@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<body>
+    <h1 th:text="${greeting}"></h1>
+    <div class="track_info_list">
+        <div class="row" th:each="song:${songs}">
+            <h5 th:text="${song}"></h5>
+        </div>
+        <div class="row" th:each="artist:${artists}">
+            <h5 th:text="${artist}"></h5>
+        </div>
+        <div class="row" th:each="genre:${genres}">
+            <h5 th:text="${genre}"></h5>
+        </div>
+    </div>
+<form th:action="@{/api/v1/tracks/results}" method="get">
+    <label for="inputName">Track name</label>
+    <input type="text" id="inputName" placeholder="Search Tracks" th:name="name" required>
+    <button type="submit">Search</button>
+</form>
+</body>
+</html>

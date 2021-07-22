@@ -214,17 +214,18 @@ public class CustomerRepository implements CustomerDao {
             System.out.println("Connection to SQLite has been established.");
 
             PreparedStatement preparedStatement =
-                    conn.prepareStatement("""
-                            SELECT  Customer.CustomerId, Customer.FirstName,Customer.LastName, Genre.Name
-                            FROM Customer INNER JOIN Invoice on Customer.CustomerId = Invoice.CustomerId
-                                INNER JOIN InvoiceLine ON Invoice.InvoiceId = InvoiceLine.InvoiceId
-                            INNER JOIN Track on InvoiceLine.TrackId = Track.TrackId
-                            INNER JOIN Genre on Track.GenreId = Genre.GenreId WHERE Customer.CustomerId = ?
-                            GROUP BY Genre.Name
-                            ORDER BY COUNT(InvoiceLine.Quantity) DESC LIMIT 1""");
+                    conn.prepareStatement(""" 
+                                                  WITH y as ( SELECT Customer.CustomerId, Customer.FirstName,Customer.LastName, Genre.Name, COUNT( InvoiceLine.Quantity) myCount
+                                                  FROM Customer
+                                                  INNER JOIN Invoice on Customer.CustomerId = Invoice.CustomerId
+                                                  INNER JOIN InvoiceLine ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+                                                  INNER JOIN Track on InvoiceLine.TrackId = Track.TrackId
+                                                  INNER JOIN Genre on Track.GenreId = Genre.GenreId WHERE Customer.CustomerId = ?
+                                                  GROUP BY Genre.Name
+                                                  ORDER BY myCount  DESC )
+                                                  SELECT CustomerId, FirstName, LastName, Name, myCount FROM y WHERE (SELECT max(myCount) from y) = myCount
+                                                                             """);
             preparedStatement.setLong(1, customerId);
-
-
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -232,7 +233,7 @@ public class CustomerRepository implements CustomerDao {
                         resultSet.getLong("customerid"),
                         resultSet.getString("firstname"),
                         resultSet.getString("lastname"),
-                        resultSet.getString("firstname")
+                        resultSet.getString("genre")
 
                 );
 
