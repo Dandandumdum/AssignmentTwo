@@ -58,6 +58,7 @@ public class CustomerController {
     public CustomerGenre searchByCustomerNameFavouriteGenre(@PathVariable long id){
         return customerService.getCustomerPopularGenre(id);
     }
+
     //Posts a new customer
     @PostMapping
     public Boolean createCustomer(@RequestBody Customer customer){
