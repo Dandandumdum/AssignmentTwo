@@ -52,6 +52,7 @@ public class ViewController {
         return home(model);
     }
 
+    // Capitalizes first letter in each word and then returns the formatted sentence back.
     private String capitalizeEachWord(String sentence) {
         String formattedName = "";
         String words[] = sentence.trim().replaceAll(" +", " ").split(" ");
