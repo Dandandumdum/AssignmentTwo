@@ -233,7 +233,7 @@ public class CustomerRepository implements CustomerDao {
                         resultSet.getLong("customerid"),
                         resultSet.getString("firstname"),
                         resultSet.getString("lastname"),
-                        resultSet.getString("genre")
+                        resultSet.getString("Name")
 
                 );
 
