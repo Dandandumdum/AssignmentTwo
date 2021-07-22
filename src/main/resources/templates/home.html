@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<body>
+<h1 class="page-header text-center">Music Info</h1>
+<div class="jumbotron">
+    <div class="container">
+        <div class="list-group">
+            <div class="row">
+                <h3 class="text-center"><label class="label label-info text-uppercase">Songs</label></h3>
+                <ul class="list-inline" th:each="song:${songs}">
+                    <li class="col-lg-6 list-group-item">
+                        <div class="text-center" th:text="${song}"></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                <h3 class="text-center"><label class="label label-info text-uppercase">Artists</label></h3>
+                <ul class="list-inline" th:each="artist:${artists}">
+                    <li class="col-lg-6 list-group-item">
+                        <div class="text-center" th:text="${artist}"></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                <h3 class="text-center"><label class="label label-info text-uppercase">Genres</label></h3>
+                <ul class="list-inline" th:each="genre:${genres}">
+                    <li class="col-lg-6 list-group-item">
+                        <div class="text-center" th:text="${genre}"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <form class="form-group" th:action="@{/api/v1/tracks/results}" method="get">
+                <input type="text" id="inputName" placeholder="Search Tracks" th:name="name" required>
+                <button class="btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

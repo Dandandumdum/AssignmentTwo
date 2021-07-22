@@ -24,6 +24,6 @@ public interface CustomerDao {
 
     ArrayList<CustomerSpender> selectCustomersHighestSpenders();
 
-    CustomerGenre specificCustomerFavouriteGenre(long id);
+    CustomerGenre selectCustomerPopularGenre(long id);
 
 }

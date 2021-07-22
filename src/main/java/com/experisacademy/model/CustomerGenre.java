@@ -1,14 +1,25 @@
 package com.experisacademy.model;
 
-public class CustomerGenre extends Customer {
+import java.util.ArrayList;
+
+public class CustomerGenre extends Entity {
+    private String firstName, lastName;
     private String genre;
 
-    public CustomerGenre(long id, String firstName, String lastName, String country,
-                         int postalCode, String phoneNumber, String email,String genre){
-        super(id,firstName,lastName,country,postalCode,phoneNumber,email);
+    public CustomerGenre(long id, String firstName, String lastName, String genre) {
+        super(id);
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.genre = genre;
 
+    }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getGenre() {

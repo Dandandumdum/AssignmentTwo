@@ -4,12 +4,13 @@ import com.experisacademy.model.Customer;
 import com.experisacademy.model.CustomerCountry;
 import com.experisacademy.model.CustomerGenre;
 import com.experisacademy.model.CustomerSpender;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-@RestController
+@Repository("customer")
 public class CustomerRepository implements CustomerDao {
     private static final String URL = ConnectionHelper.getConnectionURL();
 
@@ -55,14 +56,17 @@ public class CustomerRepository implements CustomerDao {
     }
 
     //Selects specific customer from database, selected data is chosen by customerName input parameter.
-    public ArrayList<Customer> selectCustomersByName(String customerName) {
+    public ArrayList<Customer> selectCustomersByName(String name) {
         ArrayList<Customer> customers = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(URL)) {
             System.out.println("Connection to SQLite has been established.");
 
             PreparedStatement preparedStatement =
-                    conn.prepareStatement("SELECT CustomerId, FirstName,LastName, Country, PostalCode, Phone, Email FROM Customer WHERE FirstName LIKE ?");
-            preparedStatement.setString(1, customerName);
+                    conn.prepareStatement("SELECT CustomerId, FirstName,LastName, Country, PostalCode, Phone, Email FROM Customer WHERE FirstName LIKE ? OR LastName LIKE ?");
+            preparedStatement.setString(1, "%" + name + "%");
+            preparedStatement.setString(2, "%" + name + "%");
+            for(int i = 1; i <= preparedStatement.getParameterMetaData().getParameterCount(); i++)
+                preparedStatement.setString(i, "%" + name + "%");
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -204,48 +208,33 @@ public class CustomerRepository implements CustomerDao {
     }
 
     //Performs several INNER JOINs to unify the database enabling for com.experisacademy.model.Customer data to be order by favourite Genre
-    public CustomerGenre specificCustomerFavouriteGenre(long customerId) {
+    public CustomerGenre selectCustomerPopularGenre(long customerId) {
         CustomerGenre customer = null;
         try (Connection conn = DriverManager.getConnection(URL)) {
             System.out.println("Connection to SQLite has been established.");
 
             PreparedStatement preparedStatement =
                     conn.prepareStatement("""
-                            SELECT  Customer.CustomerId, Customer.FirstName,Customer.LastName, Customer.Country,
-                                   Customer.PostalCode, Customer.Phone, Customer.Email, Genre.Name
-                            FROM Customer INNER JOIN Invoice on Customer.CustomerId = Invoice.CustomerId
-                                INNER JOIN InvoiceLine ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+                            WITH y as ( SELECT Customer.CustomerId, Customer.FirstName,Customer.LastName, Genre.Name, COUNT( InvoiceLine.Quantity) myCount
+                            FROM Customer
+                            INNER JOIN Invoice on Customer.CustomerId = Invoice.CustomerId
+                            INNER JOIN InvoiceLine ON Invoice.InvoiceId = InvoiceLine.InvoiceId
                             INNER JOIN Track on InvoiceLine.TrackId = Track.TrackId
                             INNER JOIN Genre on Track.GenreId = Genre.GenreId WHERE Customer.CustomerId = ?
                             GROUP BY Genre.Name
-                            ORDER BY COUNT(InvoiceLine.Quantity) DESC LIMIT 1""");
-            /*SELECT  Customer.CustomerId, Customer.FirstName,Customer.LastName, Customer.Country,
-                    Customer.PostalCode, Customer.Phone, Customer.Email, Genre.Name ,
-                    rank() over ( ORDER BY COUNT(InvoiceLine.Quantity) DESC ) as rank
+                            ORDER BY myCount  DESC )
+                            SELECT CustomerId, FirstName, LastName, Name, myCount FROM y WHERE (SELECT max(myCount) from y) = myCount""");
+            preparedStatement.setLong(1, customerId);
 
-            FROM Customer
-            INNER JOIN  Invoice on Customer.CustomerId = Invoice.CustomerId
-            INNER JOIN InvoiceLine ON Invoice.InvoiceId = InvoiceLine.InvoiceId
-            INNER JOIN Track on InvoiceLine.TrackId = Track.TrackId
-            INNER JOIN Genre on Track.GenreId = Genre.GenreId
-
-            WHERE Customer.CustomerId = ?
-
-            GROUP BY Genre.Name;*/
-            preparedStatement.setLong(1, customerId); // Corresponds to 1st '?' (must match type)
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 customer = new CustomerGenre(
-                        resultSet.getLong("CustomerId"),
-                        resultSet.getString("FirstName"),
-                        resultSet.getString("LastName"),
-                        resultSet.getString("Country"),
-                        resultSet.getInt("PostalCode"),
-                        resultSet.getString("Phone"),
-                        resultSet.getString("Email"),
-                        resultSet.getString("Name")
+                        resultSet.getLong("customerid"),
+                        resultSet.getString("firstname"),
+                        resultSet.getString("lastname"),
+                        resultSet.getString("firstname")
 
                 );
 
