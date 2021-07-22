@@ -27,6 +27,7 @@ public class ViewController {
         this.trackService = trackService;
     }
 
+    //GET a random set of artist-, song- and genre names. These are passed to a thymeleaf html page.
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("artists", trackService.getArtistNames(FIRST_TABLE, LIMIT));
@@ -36,22 +37,26 @@ public class ViewController {
         return "home";
     }
 
+    /* GET a Track object from the specified request parameter by passing it to
+    the service layer. If the name exists in the database then this object is passed to a thymeleaf html page.
+    Otherwise it returns to the home page.
+    */
     @GetMapping("/results")
     public String displayResults(Model model, @RequestParam String name) {
         Track track = trackService.getTrack(capitalizeEachWord(name));
-        if(track != null) {
+        if (track != null) {
             model.addAttribute("success", true);
             model.addAttribute("track", track);
-        } else {
-            model.addAttribute("success", false);
+            return "results";
         }
-        return "results";
+        return home(model);
     }
 
+    // Capitalizes first letter in each word and then returns the formatted sentence back.
     private String capitalizeEachWord(String sentence) {
         String formattedName = "";
         String words[] = sentence.trim().replaceAll(" +", " ").split(" ");
-        for(String word : words) {
+        for (String word : words) {
             formattedName += word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase() + " ";
         }
         return formattedName.trim();
