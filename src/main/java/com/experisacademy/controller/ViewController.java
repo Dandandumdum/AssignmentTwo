@@ -27,6 +27,7 @@ public class ViewController {
         this.trackService = trackService;
     }
 
+    //GET a random set of artist-, song- and genre names. These are passed to a thymeleaf html page.
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("artists", trackService.getArtistNames(FIRST_TABLE, LIMIT));
@@ -36,6 +37,10 @@ public class ViewController {
         return "home";
     }
 
+    /* GET a Track object from the specified request parameter by passing it to
+    the service layer. If the name exists in the database then this object is passed to a thymeleaf html page.
+    Otherwise it returns to the home page.
+    */
     @GetMapping("/results")
     public String displayResults(Model model, @RequestParam String name) {
         Track track = trackService.getTrack(capitalizeEachWord(name));
