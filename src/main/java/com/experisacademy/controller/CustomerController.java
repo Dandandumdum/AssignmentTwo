@@ -54,7 +54,7 @@ public class CustomerController {
 
     }
     //Requests a specific customers favourite genre along with their normal details, by customer Id
-    @GetMapping("/customer/genre/{id}")
+    @GetMapping("/genre/customer/{id}")
     public CustomerGenre searchByCustomerNameFavouriteGenre(@PathVariable long id){
         return customerService.getCustomerPopularGenre(id);
     }
