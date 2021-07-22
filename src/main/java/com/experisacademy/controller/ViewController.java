@@ -39,19 +39,18 @@ public class ViewController {
     @GetMapping("/results")
     public String displayResults(Model model, @RequestParam String name) {
         Track track = trackService.getTrack(capitalizeEachWord(name));
-        if(track != null) {
+        if (track != null) {
             model.addAttribute("success", true);
             model.addAttribute("track", track);
-        } else {
-            model.addAttribute("success", false);
+            return "results";
         }
-        return "results";
+        return home(model);
     }
 
     private String capitalizeEachWord(String sentence) {
         String formattedName = "";
         String words[] = sentence.trim().replaceAll(" +", " ").split(" ");
-        for(String word : words) {
+        for (String word : words) {
             formattedName += word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase() + " ";
         }
         return formattedName.trim();

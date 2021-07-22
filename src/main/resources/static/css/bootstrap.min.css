@@ -3752,9 +3752,9 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 
 .fade {
     opacity: 0;
-    -webkit-transition: opacity .15s linear;
-    -o-transition: opacity .15s linear;
-    transition: opacity .15s linear
+    -webkit-transition: opacity 4s linear;
+    -o-transition: opacity 4s linear;
+    transition: opacity 4s linear
 }
 
 .fade.in {
@@ -5419,6 +5419,7 @@ a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover {
 }
 
 .alert {
+    float: top;
     padding: 15px;
     margin-bottom: 20px;
     border: 1px solid transparent;
