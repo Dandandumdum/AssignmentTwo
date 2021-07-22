@@ -26,4 +26,9 @@ public class Track {
     public String getGenre() {
         return genre;
     }
+
+    @Override
+    public String toString() {
+        return name + " " + artist + " " + album + " " + genre;
+    }
 }

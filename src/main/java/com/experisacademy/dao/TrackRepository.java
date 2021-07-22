@@ -1,20 +1,23 @@
 package com.experisacademy.dao;
 
+import com.experisacademy.model.Track;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Repository("tracks")
 public class TrackRepository implements TrackDao {
 
-    private String sql;
+    private static final String URL = ConnectionHelper.getConnectionURL();
 
     @Override
     public ArrayList<String> select(String table, int limit) {
         ArrayList<String> names = new ArrayList<>();
 
-        try(Connection con = DriverManager.getConnection(ConnectionHelper.getConnectionURL())) {
+        try (Connection con = DriverManager.getConnection(URL)) {
             System.out.println("Connection to SQLite has been established.");
 
             PreparedStatement preparedStatement = con.prepareStatement(
@@ -22,7 +25,7 @@ public class TrackRepository implements TrackDao {
             preparedStatement.setInt(1, limit);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 names.add(resultSet.getString("Name"));
             }
 
@@ -33,34 +36,35 @@ public class TrackRepository implements TrackDao {
 
         return names;
     }
+
     @Override
-    public ArrayList<String> selectTrack(String trackName) {
-        ArrayList<String> song = new ArrayList<>();
-
-        try(Connection con = DriverManager.getConnection(ConnectionHelper.getConnectionURL())) {
+    public Track selectTrack(String trackName) {
+        try (Connection con = DriverManager.getConnection(URL)) {
             System.out.println("Connection to SQLite has been established.");
-
-            PreparedStatement preparedStatement = con.prepareStatement(
-                    "SELECT Track.Name, Artist.Name, Album.Title, Genre.Name FROM Track\n" +
-                            "INNER JOIN Album  on Track.AlbumId = Album.AlbumId\n" +
-                            "INNER JOIN Artist  on Album.ArtistId = Artist.ArtistId\n" +
-                            "INNER JOIN Genre on Track.GenreId = Genre.GenreId\n" +
-                            "WHERE Track.Name LIKE ?");
+            PreparedStatement preparedStatement = con.prepareStatement("""
+                    SELECT t.Name AS TitleName, alb.Title AS AlbumTitle, art.Name AS ArtistName, g.Name AS GenreName
+                    FROM Track AS t, Album AS alb, Artist AS art, Genre as g
+                    WHERE t.AlbumId = alb.AlbumId AND alb.ArtistId = art.ArtistId
+                    AND t.GenreId = g.GenreId AND t.Name = ?
+                    """);
             preparedStatement.setString(1, trackName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
-                song.add(resultSet.getString("Track.Name"));
-                song.add(resultSet.getString("Artist.Name"));
-                song.add(resultSet.getString("Album.Title"));
-                song.add(resultSet.getString("Genre.Name"));
+            Track track = null;
+            while (resultSet.next()) {
+                track = new Track(
+                        resultSet.getString("TitleName"),
+                        resultSet.getString("ArtistName"),
+                        resultSet.getString("AlbumTitle"),
+                        resultSet.getString("GenreName"));
             }
+            System.out.println("TEST2");
 
+            return track;
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
-        return song;
+        return null;
     }
 }

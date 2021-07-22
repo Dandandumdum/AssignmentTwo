@@ -1,6 +1,7 @@
 package com.experisacademy.service;
 
 import com.experisacademy.dao.TrackDao;
+import com.experisacademy.model.Track;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,10 @@ public class TrackService {
     }
     public ArrayList<String> searchMusic(String song){
         return trackDao.selectTrack(song);
+    }
+
+    public Track getTrack(String trackName) {
+        return trackDao.selectTrack(trackName);
     }
 
 }
