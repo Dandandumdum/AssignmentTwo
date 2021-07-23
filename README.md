@@ -20,7 +20,7 @@ These were:
 9.	Find the most popular genre purchased by a customer and list that information beside the customer model.
 
 Thymeleaf was used to created an appealing front-end that the user could use to search for tracks in the Chinook SQL lite database and retrieve the track name, artist, album 
-and genre.
+and genre. This aspect of the assignment is being hosted via heroku here: https://assignment2-test2.herokuapp.com/
 
 The following endpoints were created in order to use respective REST method, which have been tested using POSTMAN:
 
@@ -39,5 +39,5 @@ The following endpoints were created in order to use respective REST method, whi
   - /api/v1/customers
 - PUT
   - /api/v1/customers/id/{id}
-
+  - 
 Authors Daniel Dumville and Robin Eliasson
