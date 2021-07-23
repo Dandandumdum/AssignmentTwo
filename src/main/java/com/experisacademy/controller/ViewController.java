@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("/api/v1/tracks")
+//@RequestMapping("/api/v1/tracks")
 public class ViewController {
 
     private static final String FIRST_TABLE = "Artist";
